@@ -3,10 +3,10 @@ from fastapi.responses import JSONResponse
 import shutil
 import os
 from uuid import uuid4
-from backend.db import SessionLocal
-from backend.models import Video, Frame, Detection
-from backend.frame_extractor import extract_frames
-from backend.detection_stub import detect_animals, detect_humans, detect_weapons
+from db import SessionLocal
+from models import Video, Frame, Detection
+from frame_extractor import extract_frames
+from detection_stub import detect_animals, detect_humans, detect_weapons
 
 app = FastAPI()
 
