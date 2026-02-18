@@ -1,0 +1,145 @@
+<!-- Network Status Page -->
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="radio" style="width:32px;height:32px;color:var(--primary)"></i> Network Status</h1>
+        <p>Field camera nodes and connectivity monitoring</p>
+    </div>
+    <button class="btn btn-primary">Diagnostic Report</button>
+</div>
+
+<!-- Network Stats -->
+<div class="grid grid-cols-5">
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-2">Total Nodes</p>
+        <p class="text-2xl font-bold text-foreground">10</p>
+    </div>
+    <div class="card card-compact" style="border-color:rgba(34,197,94,0.3)">
+        <p class="text-sm text-success mb-2">Online</p>
+        <p class="text-2xl font-bold text-success">8</p>
+    </div>
+    <div class="card card-compact" style="border-color:rgba(234,179,8,0.3)">
+        <p class="text-sm text-warning mb-2">Degraded</p>
+        <p class="text-2xl font-bold text-warning">1</p>
+    </div>
+    <div class="card card-compact" style="border-color:rgba(239,68,68,0.3)">
+        <p class="text-sm text-destructive mb-2">Offline</p>
+        <p class="text-2xl font-bold text-destructive">1</p>
+    </div>
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-2">Availability</p>
+        <p class="text-2xl font-bold text-primary">80.0%</p>
+    </div>
+</div>
+
+<!-- Signal Strength Chart -->
+<div class="chart-card">
+    <h3>Network Signal Strength (24 Hours)</h3>
+    <div class="chart-container" style="height:300px">
+        <canvas id="signalChart"></canvas>
+    </div>
+</div>
+
+<!-- Camera Nodes -->
+<div>
+    <h2 class="text-xl font-semibold text-foreground mb-4">Camera Nodes</h2>
+    <div class="space-y-3" id="nodeList">
+        <!-- Nodes rendered by data below -->
+    </div>
+</div>
+
+<!-- System Health -->
+<div class="system-status">
+    <h3 class="font-semibold text-foreground">System Health Summary</h3>
+    <div class="system-status-grid">
+        <div class="system-status-item">
+            <p class="label">LoRa Mesh</p>
+            <div class="status-row"><span class="dot"></span><span>Healthy</span></div>
+        </div>
+        <div class="system-status-item">
+            <p class="label">Satellite Link</p>
+            <div class="status-row"><span class="dot"></span><span>Connected</span></div>
+        </div>
+        <div class="system-status-item">
+            <p class="label">Server API</p>
+            <div class="status-row"><span class="dot"></span><span>Online</span></div>
+        </div>
+        <div class="system-status-item">
+            <p class="label">Last Sync</p><span class="font-semibold">30 seconds ago</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Network node data - rendered client-side for interactivity
+    const cameraNodes = [
+        { id: 'CAM-NC-01', name: 'Camera NC-01', location: 'Northern Corridor - North', status: 'online', signalStrength: 85, battery: 92, lastHeartbeat: '2 seconds ago', dataTransferred: '12.4 MB' },
+        { id: 'CAM-NC-02', name: 'Camera NC-02', location: 'Northern Corridor - Central', status: 'online', signalStrength: 72, battery: 78, lastHeartbeat: '3 seconds ago', dataTransferred: '11.8 MB' },
+        { id: 'CAM-ER-01', name: 'Camera ER-01', location: 'Eastern Reserve - East', status: 'online', signalStrength: 88, battery: 95, lastHeartbeat: '2 seconds ago', dataTransferred: '13.2 MB' },
+        { id: 'CAM-ER-02', name: 'Camera ER-02', location: 'Eastern Reserve - West', status: 'degraded', signalStrength: 45, battery: 35, lastHeartbeat: '8 seconds ago', dataTransferred: '9.1 MB' },
+        { id: 'CAM-ER-03', name: 'Camera ER-03', location: 'Eastern Reserve - South', status: 'online', signalStrength: 76, battery: 82, lastHeartbeat: '4 seconds ago', dataTransferred: '12.9 MB' },
+        { id: 'CAM-CA-01', name: 'Camera CA-01', location: 'Central Area - North', status: 'online', signalStrength: 91, battery: 88, lastHeartbeat: '1 second ago', dataTransferred: '14.5 MB' },
+        { id: 'CAM-CA-02', name: 'Camera CA-02', location: 'Central Area - South', status: 'online', signalStrength: 79, battery: 71, lastHeartbeat: '2 seconds ago', dataTransferred: '11.3 MB' },
+        { id: 'CAM-SB-01', name: 'Camera SB-01', location: 'Southern Basin - East', status: 'offline', signalStrength: 0, battery: 0, lastHeartbeat: '2 minutes ago', dataTransferred: '8.7 MB' },
+        { id: 'CAM-SB-04', name: 'Camera SB-04', location: 'Southern Basin - West', status: 'online', signalStrength: 68, battery: 64, lastHeartbeat: '5 seconds ago', dataTransferred: '10.2 MB' },
+        { id: 'CAM-WP-05', name: 'Camera WP-05', location: 'Western Plains', status: 'online', signalStrength: 82, battery: 56, lastHeartbeat: '3 seconds ago', dataTransferred: '9.8 MB' },
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('nodeList');
+        if (!container) return;
+
+        cameraNodes.forEach(node => {
+            const statusIcon = node.status === 'online' ? 'check-circle-2' : node.status === 'degraded' ? 'alert-circle' : 'alert-triangle';
+            const statusColor = node.status === 'online' ? 'var(--success)' : node.status === 'degraded' ? 'var(--warning)' : 'var(--destructive)';
+            const badgeClass = node.status === 'online' ? 'badge-success' : node.status === 'degraded' ? 'badge-warning' : 'badge-critical';
+            const batteryColor = node.battery > 50 ? 'success' : node.battery > 25 ? 'warning' : 'destructive';
+
+            const html = `
+      <div class="node-card ${node.status}" data-node="${node.id}" onclick="toggleNode(this)">
+        <div class="node-header">
+          <div class="node-header-left">
+            <i data-lucide="${statusIcon}" style="width:20px;height:20px;color:${statusColor};margin-top:2px"></i>
+            <div class="flex-1">
+              <h4>${node.name}</h4>
+              <p>${node.location}</p>
+            </div>
+          </div>
+          <span class="badge ${badgeClass}">${node.status.toUpperCase()}</span>
+        </div>
+        <div class="node-stats">
+          <div>
+            <div class="node-stat-label"><i data-lucide="signal" style="width:16px;height:16px"></i><span>Signal</span></div>
+            <div class="node-stat-value"><div class="progress-bar progress-bar-sm" style="width:80px"><div class="progress-fill primary" style="width:${node.signalStrength}%"></div></div><span class="text-xs font-semibold">${node.signalStrength}%</span></div>
+          </div>
+          <div>
+            <div class="node-stat-label"><i data-lucide="battery" style="width:16px;height:16px"></i><span>Battery</span></div>
+            <div class="node-stat-value"><div class="progress-bar progress-bar-sm" style="width:80px"><div class="progress-fill ${batteryColor}" style="width:${node.battery}%"></div></div><span class="text-xs font-semibold">${node.battery}%</span></div>
+          </div>
+          <div>
+            <div class="node-stat-label"><i data-lucide="activity" style="width:16px;height:16px"></i><span>Heartbeat</span></div>
+            <p class="text-xs font-semibold text-foreground">${node.lastHeartbeat}</p>
+          </div>
+          <div>
+            <div class="node-stat-label"><i data-lucide="cloud" style="width:16px;height:16px"></i><span>Data (24h)</span></div>
+            <p class="text-xs font-semibold text-foreground">${node.dataTransferred}</p>
+          </div>
+        </div>
+        <div class="node-expanded">
+          <div class="node-expanded-grid">
+            <div><p class="label">IP Address</p><p class="value mono">192.168.1.${Math.floor(Math.random() * 255)}</p></div>
+            <div><p class="label">Firmware</p><p class="value">v2.4.1</p></div>
+            <div><p class="label">Uptime</p><p class="value">45 days 12h</p></div>
+            <div><p class="label">Temperature</p><p class="value">28.3°C</p></div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-outline btn-sm" style="flex:1" onclick="event.stopPropagation()">Reboot</button>
+            <button class="btn btn-outline btn-sm" style="flex:1" onclick="event.stopPropagation()">Diagnostics</button>
+          </div>
+        </div>
+      </div>`;
+            container.insertAdjacentHTML('beforeend', html);
+        });
+
+        lucide.createIcons();
+    });
+</script>

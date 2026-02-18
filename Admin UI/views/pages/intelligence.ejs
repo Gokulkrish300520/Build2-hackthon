@@ -1,0 +1,251 @@
+<!-- Intelligence Page -->
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="trending-up" style="width:32px;height:32px;color:var(--primary)"></i> Predictive
+            Intelligence</h1>
+        <p>Historical patterns and behavioral analysis</p>
+    </div>
+    <button class="btn btn-primary">Generate Intelligence Report</button>
+</div>
+
+<!-- Key Insights -->
+<div class="grid grid-cols-3">
+    <div class="insight-card destructive">
+        <p class="insight-label text-destructive">Critical Trend</p>
+        <p class="insight-value">+47%</p>
+        <p class="insight-sub">Increase in poaching attempts (YoY)</p>
+    </div>
+    <div class="insight-card warning">
+        <p class="insight-label text-warning">Peak Risk Period</p>
+        <p class="insight-value text-lg">Dry Season (Jun-Oct)</p>
+        <p class="insight-sub">87% higher incident rate</p>
+    </div>
+    <div class="insight-card primary">
+        <p class="insight-label text-primary">High Risk Zone</p>
+        <p class="insight-value text-lg">Northern Corridor</p>
+        <p class="insight-sub">Consistent hotspot for threats</p>
+    </div>
+</div>
+
+<!-- Trends Chart -->
+<div class="chart-card">
+    <h3>6-Month Trend Analysis</h3>
+    <div class="chart-container" style="height:350px">
+        <canvas id="trendChart"></canvas>
+    </div>
+</div>
+
+<!-- Side by side charts -->
+<div class="grid grid-cols-2">
+    <div class="chart-card">
+        <h3>Seasonal Risk Patterns</h3>
+        <div class="chart-container" style="height:300px">
+            <canvas id="seasonalChart"></canvas>
+        </div>
+    </div>
+    <div class="chart-card">
+        <h3>Zone Risk Timeline (5 Years)</h3>
+        <div class="chart-container" style="height:300px">
+            <canvas id="zoneRiskChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Recommendations -->
+<div>
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold text-foreground flex items-center gap-2">
+            <i data-lucide="zap" style="width:24px;height:24px;color:var(--primary)"></i>
+            AI-Generated Recommendations
+        </h2>
+        <button class="btn btn-outline btn-sm">
+            <i data-lucide="alert-triangle" style="width:16px;height:16px;margin-right:0.5rem"></i> Filter by Priority
+        </button>
+    </div>
+    <div class="space-y-3">
+        <!-- Rec 1 -->
+        <div class="rec-card high">
+            <div class="rec-header">
+                <div class="flex-1">
+                    <div class="rec-title-row">
+                        <h4>Increase patrols in Northern Corridor</h4><span class="badge badge-critical">HIGH</span>
+                    </div>
+                    <p class="text-sm text-muted">Activity analysis shows 45% increase in poaching attempts during dawn
+                        hours</p>
+                </div>
+            </div>
+            <div class="rec-details">
+                <div class="flex items-center gap-2"><i data-lucide="map-pin"
+                        style="width:16px;height:16px;color:var(--muted-foreground)"></i><span
+                        class="font-medium">Northern Corridor</span></div>
+                <div>
+                    <p class="label">Confidence</p>
+                    <div class="flex items-center gap-2">
+                        <div class="progress-bar progress-bar-sm" style="flex:1">
+                            <div class="progress-fill primary" style="width:92%"></div>
+                        </div><span class="text-xs font-semibold">92%</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="label">Expected Impact</p><span class="value-success">Could prevent 3-5
+                        incidents/month</span>
+                </div>
+            </div>
+            <div class="flex gap-2"><button class="btn btn-outline btn-sm">View Analysis</button><button
+                    class="btn btn-outline btn-sm">Implement</button></div>
+        </div>
+
+        <!-- Rec 2 -->
+        <div class="rec-card high">
+            <div class="rec-header">
+                <div class="flex-1">
+                    <div class="rec-title-row">
+                        <h4>Deploy additional camera in Southern Basin</h4><span
+                            class="badge badge-critical">HIGH</span>
+                    </div>
+                    <p class="text-sm text-muted">Coverage gap detected in southwest corner - 28% of zone unmonitored
+                    </p>
+                </div>
+            </div>
+            <div class="rec-details">
+                <div class="flex items-center gap-2"><i data-lucide="map-pin"
+                        style="width:16px;height:16px;color:var(--muted-foreground)"></i><span
+                        class="font-medium">Southern Basin</span></div>
+                <div>
+                    <p class="label">Confidence</p>
+                    <div class="flex items-center gap-2">
+                        <div class="progress-bar progress-bar-sm" style="flex:1">
+                            <div class="progress-fill primary" style="width:88%"></div>
+                        </div><span class="text-xs font-semibold">88%</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="label">Expected Impact</p><span class="value-success">Increase detection rate by
+                        22%</span>
+                </div>
+            </div>
+            <div class="flex gap-2"><button class="btn btn-outline btn-sm">View Analysis</button><button
+                    class="btn btn-outline btn-sm">Implement</button></div>
+        </div>
+
+        <!-- Rec 3 -->
+        <div class="rec-card medium">
+            <div class="rec-header">
+                <div class="flex-1">
+                    <div class="rec-title-row">
+                        <h4>Seasonal patrol adjustment</h4><span class="badge badge-warning">MEDIUM</span>
+                    </div>
+                    <p class="text-sm text-muted">Dry season approaching - historical data shows 87% higher incident
+                        rate</p>
+                </div>
+            </div>
+            <div class="rec-details">
+                <div class="flex items-center gap-2"><i data-lucide="map-pin"
+                        style="width:16px;height:16px;color:var(--muted-foreground)"></i><span class="font-medium">All
+                        Zones</span></div>
+                <div>
+                    <p class="label">Confidence</p>
+                    <div class="flex items-center gap-2">
+                        <div class="progress-bar progress-bar-sm" style="flex:1">
+                            <div class="progress-fill primary" style="width:85%"></div>
+                        </div><span class="text-xs font-semibold">85%</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="label">Expected Impact</p><span class="value-success">Prepare resources in advance</span>
+                </div>
+            </div>
+            <div class="flex gap-2"><button class="btn btn-outline btn-sm">View Analysis</button><button
+                    class="btn btn-outline btn-sm">Implement</button></div>
+        </div>
+
+        <!-- Rec 4 -->
+        <div class="rec-card medium">
+            <div class="rec-header">
+                <div class="flex-1">
+                    <div class="rec-title-row">
+                        <h4>Reinforce Eastern Reserve borders</h4><span class="badge badge-warning">MEDIUM</span>
+                    </div>
+                    <p class="text-sm text-muted">Coordinated group activity detected near reserve boundary</p>
+                </div>
+            </div>
+            <div class="rec-details">
+                <div class="flex items-center gap-2"><i data-lucide="map-pin"
+                        style="width:16px;height:16px;color:var(--muted-foreground)"></i><span
+                        class="font-medium">Eastern Reserve</span></div>
+                <div>
+                    <p class="label">Confidence</p>
+                    <div class="flex items-center gap-2">
+                        <div class="progress-bar progress-bar-sm" style="flex:1">
+                            <div class="progress-fill primary" style="width:79%"></div>
+                        </div><span class="text-xs font-semibold">79%</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="label">Expected Impact</p><span class="value-success">Could prevent organized poaching
+                        operations</span>
+                </div>
+            </div>
+            <div class="flex gap-2"><button class="btn btn-outline btn-sm">View Analysis</button><button
+                    class="btn btn-outline btn-sm">Implement</button></div>
+        </div>
+
+        <!-- Rec 5 -->
+        <div class="rec-card low">
+            <div class="rec-header">
+                <div class="flex-1">
+                    <div class="rec-title-row">
+                        <h4>Optimize Central Area patrol routes</h4><span class="badge badge-muted">LOW</span>
+                    </div>
+                    <p class="text-sm text-muted">Current routes have 15% overlap - can be more efficient</p>
+                </div>
+            </div>
+            <div class="rec-details">
+                <div class="flex items-center gap-2"><i data-lucide="map-pin"
+                        style="width:16px;height:16px;color:var(--muted-foreground)"></i><span
+                        class="font-medium">Central Area</span></div>
+                <div>
+                    <p class="label">Confidence</p>
+                    <div class="flex items-center gap-2">
+                        <div class="progress-bar progress-bar-sm" style="flex:1">
+                            <div class="progress-fill primary" style="width:72%"></div>
+                        </div><span class="text-xs font-semibold">72%</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="label">Expected Impact</p><span class="value-success">Save 2-3 hours of patrol time
+                        daily</span>
+                </div>
+            </div>
+            <div class="flex gap-2"><button class="btn btn-outline btn-sm">View Analysis</button><button
+                    class="btn btn-outline btn-sm">Implement</button></div>
+        </div>
+    </div>
+</div>
+
+<!-- Pattern Detection -->
+<div class="system-status">
+    <h3><i data-lucide="bar-chart-3" style="width:20px;height:20px;color:var(--primary)"></i> Pattern Detection</h3>
+    <div class="pattern-grid">
+        <div class="pattern-item">
+            <p class="pattern-label">Coordinated Activity</p>
+            <p class="pattern-value text-destructive">7 instances</p>
+            <p class="pattern-sub">In past 30 days</p>
+        </div>
+        <div class="pattern-item">
+            <p class="pattern-label">Time-based Clustering</p>
+            <p class="pattern-value text-warning">5:00 AM - 7:00 AM</p>
+            <p class="pattern-sub">Peak activity window</p>
+        </div>
+        <div class="pattern-item">
+            <p class="pattern-label">Location Correlation</p>
+            <p class="pattern-value text-primary">0.84</p>
+            <p class="pattern-sub">Water sources</p>
+        </div>
+        <div class="pattern-item">
+            <p class="pattern-label">Anomaly Detection</p>
+            <p class="pattern-value text-success">3 new patterns</p>
+            <p class="pattern-sub">This month</p>
+        </div>
+    </div>
+</div>
