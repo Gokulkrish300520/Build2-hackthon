@@ -6,4 +6,5 @@ psycopg2-binary
 opencv-python
 pydantic
 python-multipart
+pytest
 # For demo, using SQLite; for prod, use PostgreSQL
