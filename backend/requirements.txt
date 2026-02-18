@@ -8,3 +8,6 @@ pydantic
 python-multipart
 pytest
 # For demo, using SQLite; for prod, use PostgreSQL
+
+# For YOLO model
+ultralytics
