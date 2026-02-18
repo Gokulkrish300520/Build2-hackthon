@@ -1,0 +1,235 @@
+<!-- Dashboard / Overview Page -->
+<div class="page-header">
+    <div class="page-header-left">
+        <h1>Dashboard</h1>
+        <p>Real-time wildlife protection operations</p>
+    </div>
+    <button class="btn btn-outline">Generate Report</button>
+</div>
+
+<!-- Key Metrics -->
+<div class="grid grid-cols-5">
+    <div class="status-card">
+        <div class="glow"></div>
+        <div class="status-card-header">
+            <div class="status-card-icon normal"><i data-lucide="eye" style="width:20px;height:20px"></i></div>
+            <div class="status-dot normal"></div>
+        </div>
+        <p class="status-card-label">Active Cameras</p>
+        <div class="status-card-value">
+            <h3>32</h3>
+            <span class="trend-up">↑ +2</span>
+        </div>
+        <p class="status-card-subtitle">39 total nodes</p>
+    </div>
+
+    <div class="status-card">
+        <div class="glow"></div>
+        <div class="status-card-header">
+            <div class="status-card-icon critical"><i data-lucide="alert-triangle" style="width:20px;height:20px"></i>
+            </div>
+            <div class="status-dot critical"></div>
+        </div>
+        <p class="status-card-label">Active Alerts</p>
+        <div class="status-card-value">
+            <h3>8</h3>
+            <span class="trend-up">↑ +1</span>
+        </div>
+        <p class="status-card-subtitle">3 critical</p>
+    </div>
+
+    <div class="status-card">
+        <div class="glow"></div>
+        <div class="status-card-header">
+            <div class="status-card-icon normal"><i data-lucide="zap" style="width:20px;height:20px"></i></div>
+            <div class="status-dot normal"></div>
+        </div>
+        <p class="status-card-label">YOLO Detections</p>
+        <div class="status-card-value">
+            <h3>38</h3>
+            <span class="trend-up">↑ +5</span>
+        </div>
+        <p class="status-card-subtitle">24h activity</p>
+    </div>
+
+    <div class="status-card">
+        <div class="glow"></div>
+        <div class="status-card-header">
+            <div class="status-card-icon normal"><i data-lucide="map-pin" style="width:20px;height:20px"></i></div>
+            <div class="status-dot normal"></div>
+        </div>
+        <p class="status-card-label">Active Patrols</p>
+        <div class="status-card-value">
+            <h3>12</h3>
+            <span class="trend-up">↑ +3</span>
+        </div>
+        <p class="status-card-subtitle">94 rangers deployed</p>
+    </div>
+
+    <div class="status-card">
+        <div class="glow"></div>
+        <div class="status-card-header">
+            <div class="status-card-icon warning"><i data-lucide="radio" style="width:20px;height:20px"></i></div>
+            <div class="status-dot warning"></div>
+        </div>
+        <p class="status-card-label">Network Health</p>
+        <div class="status-card-value">
+            <h3>94.9%</h3>
+            <span class="trend-down">↓ -0.5%</span>
+        </div>
+        <p class="status-card-subtitle">2 nodes offline</p>
+    </div>
+</div>
+
+<!-- Charts Row 1 -->
+<div class="grid grid-cols-2">
+    <div class="chart-card">
+        <h3>Alert Trends (7 Days)</h3>
+        <div class="chart-container" style="height:300px">
+            <canvas id="alertTrendsChart"></canvas>
+        </div>
+    </div>
+    <div class="chart-card">
+        <h3>Detection Distribution</h3>
+        <div class="chart-container" style="height:300px">
+            <canvas id="detectionChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row 2 -->
+<div class="grid grid-cols-2">
+    <div class="chart-card">
+        <h3>Network Health (24h)</h3>
+        <div class="chart-container" style="height:300px">
+            <canvas id="networkHealthChart"></canvas>
+        </div>
+    </div>
+    <div class="chart-card">
+        <h3>Risk Heatmap by Zone</h3>
+        <div class="heatmap-grid" id="riskHeatmap"></div>
+    </div>
+</div>
+
+<!-- Recent Alerts Feed -->
+<div>
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold text-foreground">Recent Alerts Feed</h2>
+        <a href="/alerts" class="btn btn-ghost text-sm" style="color:var(--primary)">
+            View All Alerts <i data-lucide="arrow-up-right" style="width:16px;height:16px;margin-left:0.5rem"></i>
+        </a>
+    </div>
+    <div class="space-y-3">
+        <!-- Alert 1 -->
+        <div class="alert-card critical">
+            <div class="alert-card-header">
+                <div class="alert-card-left">
+                    <div class="alert-icon-wrap critical"><i data-lucide="alert-triangle"
+                            style="width:20px;height:20px"></i></div>
+                    <div class="flex-1">
+                        <div class="alert-title-row">
+                            <h4>Unauthorized Movement Detected</h4>
+                            <span class="badge badge-critical">CRITICAL</span>
+                        </div>
+                        <p class="alert-desc">Potential poacher activity near water source</p>
+                    </div>
+                </div>
+                <span class="alert-status-badge active">Active</span>
+            </div>
+            <div class="alert-details">
+                <div class="alert-detail-item"><i data-lucide="clock" style="width:16px;height:16px"></i><span>2 minutes
+                        ago</span></div>
+                <div class="alert-detail-item"><i data-lucide="map-pin"
+                        style="width:16px;height:16px"></i><span>Northern Corridor</span></div>
+                <div class="alert-detail-item"><i data-lucide="camera"
+                        style="width:16px;height:16px"></i><span>CAM-NC-01</span></div>
+            </div>
+            <div class="alert-actions">
+                <button class="btn btn-outline btn-sm">Acknowledge</button>
+                <button class="btn btn-outline btn-sm">View Details</button>
+                <button class="btn btn-outline btn-sm ml-auto"><i data-lucide="check-circle-2"
+                        style="width:12px;height:12px;margin-right:4px"></i>Resolve</button>
+            </div>
+        </div>
+
+        <!-- Alert 2 -->
+        <div class="alert-card warning">
+            <div class="alert-card-header">
+                <div class="alert-card-left">
+                    <div class="alert-icon-wrap warning"><i data-lucide="alert-circle"
+                            style="width:20px;height:20px"></i></div>
+                    <div class="flex-1">
+                        <div class="alert-title-row">
+                            <h4>Wildlife Aggregation</h4>
+                            <span class="badge badge-warning">WARNING</span>
+                        </div>
+                        <p class="alert-desc">Unusual elephant herd gathering detected</p>
+                    </div>
+                </div>
+                <span class="alert-status-badge acknowledged">Acknowledged</span>
+            </div>
+            <div class="alert-details">
+                <div class="alert-detail-item"><i data-lucide="clock" style="width:16px;height:16px"></i><span>15
+                        minutes ago</span></div>
+                <div class="alert-detail-item"><i data-lucide="map-pin" style="width:16px;height:16px"></i><span>Eastern
+                        Reserve</span></div>
+                <div class="alert-detail-item"><i data-lucide="camera"
+                        style="width:16px;height:16px"></i><span>CAM-ER-03</span></div>
+            </div>
+            <div class="alert-actions">
+                <button class="btn btn-outline btn-sm">View Details</button>
+                <button class="btn btn-outline btn-sm ml-auto"><i data-lucide="check-circle-2"
+                        style="width:12px;height:12px;margin-right:4px"></i>Resolve</button>
+            </div>
+        </div>
+
+        <!-- Alert 3 -->
+        <div class="alert-card info">
+            <div class="alert-card-header">
+                <div class="alert-card-left">
+                    <div class="alert-icon-wrap info"><i data-lucide="alert-circle" style="width:20px;height:20px"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="alert-title-row">
+                            <h4>Network Connectivity Issue</h4>
+                            <span class="badge badge-info">INFO</span>
+                        </div>
+                        <p class="alert-desc">Node connection degradation detected</p>
+                    </div>
+                </div>
+                <span class="alert-status-badge resolved">Resolved</span>
+            </div>
+            <div class="alert-details">
+                <div class="alert-detail-item"><i data-lucide="clock" style="width:16px;height:16px"></i><span>28
+                        minutes ago</span></div>
+                <div class="alert-detail-item"><i data-lucide="map-pin" style="width:16px;height:16px"></i><span>Central
+                        Area</span></div>
+                <div class="alert-detail-item"><i data-lucide="camera"
+                        style="width:16px;height:16px"></i><span>CAM-CA-02</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Status -->
+<div class="system-status">
+    <h3><i data-lucide="activity" style="width:20px;height:20px;color:var(--success)"></i> System Status</h3>
+    <div class="system-status-grid">
+        <div class="system-status-item">
+            <p class="label">LoRa Network</p>
+            <div class="status-row"><span class="dot"></span><span>Operational</span></div>
+        </div>
+        <div class="system-status-item">
+            <p class="label">Satellite Link</p>
+            <div class="status-row"><span class="dot"></span><span>Connected</span></div>
+        </div>
+        <div class="system-status-item">
+            <p class="label">AI Processing</p>
+            <div class="status-row"><span class="dot"></span><span>Running</span></div>
+        </div>
+        <div class="system-status-item">
+            <p class="label">Data Sync</p>
+            <div class="status-row"><span class="dot"></span><span>Updated</span></div>
+        </div>
+    </div>
+</div>

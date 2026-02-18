@@ -1,0 +1,243 @@
+<!-- Cameras & YOLO Detection Page -->
+<div class="page-header">
+    <div class="page-header-left">
+        <h1>CCTV & Detection System</h1>
+        <p>Real-time monitoring with YOLO-powered wildlife detection</p>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs-list">
+    <button class="tab-trigger active" onclick="switchTab('deployment')">
+        <i data-lucide="map" style="width:16px;height:16px"></i> Deployment Map
+    </button>
+    <button class="tab-trigger" onclick="switchTab('feeds')">
+        <i data-lucide="video" style="width:16px;height:16px"></i> Live Feeds
+    </button>
+    <button class="tab-trigger" onclick="switchTab('detections')">
+        <i data-lucide="bar-chart-3" style="width:16px;height:16px"></i> Detection Analytics
+    </button>
+</div>
+
+<!-- Deployment Map Tab -->
+<div class="tab-content active" id="tab-deployment">
+    <div class="card" style="min-height:400px">
+        <h3 class="font-semibold text-foreground mb-4">Mudumalai Tiger Reserve - Camera Deployment</h3>
+        <div
+            style="position:relative;background:linear-gradient(135deg, rgba(20,184,166,0.03) 0%, rgba(20,184,166,0.01) 100%); border-radius:var(--radius); height:350px; overflow:hidden; border:1px solid var(--border)">
+            <!-- Grid background -->
+            <div
+                style="position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px, transparent 1px),linear-gradient(90deg, var(--border) 1px, transparent 1px);background-size:50px 50px;opacity:0.3">
+            </div>
+            <!-- Camera dots -->
+            <div style="position:relative;z-index:1;height:100%;padding:1rem" id="cameraMap">
+                <div class="camera-dot online" style="position:absolute;left:30%;top:15%"
+                    title="CAM-MM-01 Northern Entry Point"><span class="cam-pulse"></span></div>
+                <div class="camera-dot online" style="position:absolute;left:50%;top:35%"
+                    title="CAM-MM-02 Central Grassland"><span class="cam-pulse"></span></div>
+                <div class="camera-dot online" style="position:absolute;left:75%;top:25%"
+                    title="CAM-MM-03 Eastern Ridge"><span class="cam-pulse"></span></div>
+                <div class="camera-dot degraded" style="position:absolute;left:40%;top:70%"
+                    title="CAM-MM-04 Southern Waterhole"></div>
+                <div class="camera-dot online" style="position:absolute;left:15%;top:50%"
+                    title="CAM-MM-05 Western Boundary"><span class="cam-pulse"></span></div>
+                <div class="camera-dot online" style="position:absolute;left:55%;top:55%"
+                    title="CAM-MM-06 Central Valley"><span class="cam-pulse"></span></div>
+                <div class="camera-dot offline" style="position:absolute;left:80%;top:60%"
+                    title="CAM-MM-07 Eastern Forest"></div>
+                <div class="camera-dot online" style="position:absolute;left:35%;top:30%"
+                    title="CAM-MM-08 Northern Ridge"><span class="cam-pulse"></span></div>
+            </div>
+        </div>
+        <!-- Legend -->
+        <div class="flex gap-4 mt-4" style="font-size:0.75rem;color:var(--muted-foreground)">
+            <div class="flex items-center gap-2"><span
+                    style="width:10px;height:10px;border-radius:50%;background:var(--success);display:inline-block"></span>
+                Online</div>
+            <div class="flex items-center gap-2"><span
+                    style="width:10px;height:10px;border-radius:50%;background:var(--warning);display:inline-block"></span>
+                Degraded</div>
+            <div class="flex items-center gap-2"><span
+                    style="width:10px;height:10px;border-radius:50%;background:var(--destructive);display:inline-block"></span>
+                Offline</div>
+        </div>
+    </div>
+</div>
+
+<!-- Live Feeds Tab -->
+<div class="tab-content" id="tab-feeds">
+    <!-- Camera Selection -->
+    <div class="card card-compact">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h3 class="font-semibold text-foreground">Select Camera Feed</h3>
+                <p class="text-sm text-muted">Choose from 8 active cameras</p>
+            </div>
+            <div class="flex gap-2">
+                <button class="btn btn-outline btn-sm active" id="viewSingle"
+                    onclick="setCameraView('single')">Single</button>
+                <button class="btn btn-outline btn-sm" id="viewGrid" onclick="setCameraView('grid')">Grid</button>
+            </div>
+        </div>
+        <div class="camera-grid" id="cameraSelector"></div>
+    </div>
+
+    <!-- Feed Display -->
+    <div id="feedDisplay"></div>
+</div>
+
+<!-- Detection Analytics Tab -->
+<div class="tab-content" id="tab-detections">
+    <div class="grid grid-cols-2">
+        <div class="chart-card">
+            <h3>Detection Timeline (24h)</h3>
+            <div class="chart-container" style="height:300px">
+                <canvas id="detectionTimelineChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3>Detection Distribution</h3>
+            <div class="chart-container" style="height:300px">
+                <canvas id="detectionDistChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="chart-card">
+        <h3>Model Confidence by Class</h3>
+        <div class="chart-container" style="height:250px">
+            <canvas id="confidenceChart"></canvas>
+        </div>
+    </div>
+    <!-- Recent Detections Table -->
+    <div class="card">
+        <h3 class="font-semibold text-foreground mb-4">Recent Detections</h3>
+        <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;font-size:0.875rem">
+                <thead>
+                    <tr style="border-bottom:1px solid var(--border);text-align:left">
+                        <th style="padding:0.75rem;color:var(--muted-foreground);font-weight:500">ID</th>
+                        <th style="padding:0.75rem;color:var(--muted-foreground);font-weight:500">Class</th>
+                        <th style="padding:0.75rem;color:var(--muted-foreground);font-weight:500">Confidence</th>
+                        <th style="padding:0.75rem;color:var(--muted-foreground);font-weight:500">Camera</th>
+                        <th style="padding:0.75rem;color:var(--muted-foreground);font-weight:500">Threat</th>
+                        <th style="padding:0.75rem;color:var(--muted-foreground);font-weight:500">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:0.75rem;font-family:monospace;font-size:0.75rem">DET-001</td>
+                        <td style="padding:0.75rem">Elephant</td>
+                        <td style="padding:0.75rem">
+                            <div class="flex items-center gap-2">
+                                <div class="progress-bar progress-bar-sm" style="width:80px">
+                                    <div class="progress-fill success" style="width:98%"></div>
+                                </div><span>98%</span>
+                            </div>
+                        </td>
+                        <td style="padding:0.75rem">CAM-MM-02</td>
+                        <td style="padding:0.75rem"><span class="badge badge-success">Low</span></td>
+                        <td style="padding:0.75rem;color:var(--muted-foreground)">2 min ago</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:0.75rem;font-family:monospace;font-size:0.75rem">DET-002</td>
+                        <td style="padding:0.75rem">Tiger</td>
+                        <td style="padding:0.75rem">
+                            <div class="flex items-center gap-2">
+                                <div class="progress-bar progress-bar-sm" style="width:80px">
+                                    <div class="progress-fill success" style="width:94%"></div>
+                                </div><span>94%</span>
+                            </div>
+                        </td>
+                        <td style="padding:0.75rem">CAM-MM-03</td>
+                        <td style="padding:0.75rem"><span class="badge badge-warning">Medium</span></td>
+                        <td style="padding:0.75rem;color:var(--muted-foreground)">8 min ago</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:0.75rem;font-family:monospace;font-size:0.75rem">DET-003</td>
+                        <td style="padding:0.75rem">Person</td>
+                        <td style="padding:0.75rem">
+                            <div class="flex items-center gap-2">
+                                <div class="progress-bar progress-bar-sm" style="width:80px">
+                                    <div class="progress-fill warning" style="width:89%"></div>
+                                </div><span>89%</span>
+                            </div>
+                        </td>
+                        <td style="padding:0.75rem">CAM-MM-01</td>
+                        <td style="padding:0.75rem"><span class="badge badge-critical">High</span></td>
+                        <td style="padding:0.75rem;color:var(--muted-foreground)">15 min ago</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0.75rem;font-family:monospace;font-size:0.75rem">DET-004</td>
+                        <td style="padding:0.75rem">Vehicle</td>
+                        <td style="padding:0.75rem">
+                            <div class="flex items-center gap-2">
+                                <div class="progress-bar progress-bar-sm" style="width:80px">
+                                    <div class="progress-fill warning" style="width:76%"></div>
+                                </div><span>76%</span>
+                            </div>
+                        </td>
+                        <td style="padding:0.75rem">CAM-MM-05</td>
+                        <td style="padding:0.75rem"><span class="badge badge-critical">High</span></td>
+                        <td style="padding:0.75rem;color:var(--muted-foreground)">22 min ago</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- System Statistics -->
+<div class="grid grid-cols-4">
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-1">Total Cameras</p>
+        <p class="text-2xl font-bold text-foreground">8</p>
+        <p class="text-xs text-success mt-2">6 Online</p>
+    </div>
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-1">Today's Detections</p>
+        <p class="text-2xl font-bold text-accent">38</p>
+        <p class="text-xs text-muted mt-2">Wildlife: 28 | Persons: 10</p>
+    </div>
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-1">Avg Model Accuracy</p>
+        <p class="text-2xl font-bold text-success">94.3%</p>
+        <p class="text-xs text-muted mt-2">YOLO v8 Nano</p>
+    </div>
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-1">Alerts Triggered</p>
+        <p class="text-2xl font-bold text-warning">3</p>
+        <p class="text-xs text-warning mt-2">2 High Priority</p>
+    </div>
+</div>
+
+<style>
+    .camera-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        position: absolute;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .camera-dot.online {
+        background: var(--success);
+    }
+
+    .camera-dot.degraded {
+        background: var(--warning);
+    }
+
+    .camera-dot.offline {
+        background: var(--destructive);
+    }
+
+    .cam-pulse {
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid var(--success);
+        animation: pulse 2s infinite;
+        pointer-events: none;
+    }
+</style>

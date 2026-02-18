@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SentinelAI - <%= title %></title>
+  <meta name="description" content="Real-time monitoring and management of wildlife protection operations">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">
+        <i data-lucide="shield" style="width:24px;height:24px"></i>
+      </div>
+      <div class="sidebar-logo-text">
+        <h1>SentinelAI</h1>
+        <p>Wildlife Protection</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/" class="<%= activePath === '/' ? 'active' : '' %>">
+        <i data-lucide="bar-chart-3" style="width:20px;height:20px"></i>
+        <span>Overview</span>
+      </a>
+      <a href="/alerts" class="<%= activePath === '/alerts' ? 'active' : '' %>">
+        <i data-lucide="alert-triangle" style="width:20px;height:20px"></i>
+        <span>Alerts</span>
+      </a>
+      <a href="/cameras" class="<%= activePath === '/cameras' ? 'active' : '' %>">
+        <i data-lucide="video" style="width:20px;height:20px"></i>
+        <span>Cameras</span>
+      </a>
+      <a href="/patrols" class="<%= activePath === '/patrols' ? 'active' : '' %>">
+        <i data-lucide="map-pin" style="width:20px;height:20px"></i>
+        <span>Patrols</span>
+      </a>
+      <a href="/network" class="<%= activePath === '/network' ? 'active' : '' %>">
+        <i data-lucide="radio" style="width:20px;height:20px"></i>
+        <span>Network</span>
+      </a>
+      <a href="/intelligence" class="<%= activePath === '/intelligence' ? 'active' : '' %>">
+        <i data-lucide="trending-up" style="width:20px;height:20px"></i>
+        <span>Intelligence</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="label">System Status</p>
+      <div class="status-dot-inline">
+        <span class="dot"></span>
+        <span>Operational</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Top Nav -->
+  <header class="top-nav">
+    <div class="top-nav-time">
+      <i data-lucide="clock" style="width:16px;height:16px"></i>
+      <span id="current-time"></span>
+    </div>
+    <div class="top-nav-actions">
+      <button class="icon-btn">
+        <i data-lucide="bell" style="width:20px;height:20px"></i>
+        <span class="notification-dot"></span>
+      </button>
+      <button class="icon-btn">
+        <i data-lucide="settings" style="width:20px;height:20px"></i>
+      </button>
+      <div class="user-info">
+        <div class="user-info-text">
+          <p class="name">Admin User</p>
+          <p class="role">Operator</p>
+        </div>
+        <div class="user-avatar">A</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-content">
+      <%- include('pages/' + page) %>
+    </div>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <% if (page === 'index' || page === 'intelligence' || page === 'network') { %>
+  <script src="/js/charts.js"></script>
+  <% } %>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

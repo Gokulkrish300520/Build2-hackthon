@@ -1,0 +1,324 @@
+<!-- Patrols Page -->
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="map-pin" style="width:32px;height:32px;color:var(--primary)"></i> Active Patrols</h1>
+        <p>Real-time ranger deployment and coordination</p>
+    </div>
+    <button class="btn btn-primary">Schedule New Patrol</button>
+</div>
+
+<!-- Summary Stats -->
+<div class="grid grid-cols-4">
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-2">Active Patrols</p>
+        <p class="text-2xl font-bold text-primary">4</p>
+    </div>
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-2">Total Rangers</p>
+        <p class="text-2xl font-bold text-foreground">16</p>
+    </div>
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-2">Avg Coverage</p>
+        <p class="text-2xl font-bold text-success">88%</p>
+    </div>
+    <div class="card card-compact">
+        <p class="text-sm text-muted mb-2">Total Detections</p>
+        <p class="text-2xl font-bold text-destructive">5</p>
+    </div>
+</div>
+
+<!-- Patrol Map -->
+<div class="patrol-map-placeholder">
+    <h3>Patrol Routes - Mudumalai Reserve</h3>
+    <p>5 patrol teams deployed across operational zones</p>
+</div>
+
+<!-- Patrol Teams -->
+<div>
+    <h2 class="text-xl font-semibold text-foreground mb-4">Patrol Teams</h2>
+    <div class="space-y-4" id="patrolList">
+        <!-- Alpha Team -->
+        <div class="patrol-card" data-patrol="patrol-1" onclick="togglePatrol(this)">
+            <div class="patrol-header">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <h3>Alpha Team</h3>
+                        <span class="badge" style="background:rgba(20,184,166,0.2);color:var(--primary)">ACTIVE</span>
+                    </div>
+                    <p class="text-sm text-muted">Led by <span class="font-medium text-foreground">John Kamau</span></p>
+                </div>
+                <div style="text-align:right">
+                    <p class="text-sm text-muted">Coverage</p>
+                    <p class="text-2xl font-bold text-primary">92%</p>
+                </div>
+            </div>
+            <div class="patrol-details">
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="map-pin"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Zone</p>
+                    <p class="value">Northern Corridor</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="clock"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Duration</p>
+                    <p class="value">2h 15m</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="users"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Rangers</p>
+                    <p class="value">3</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="trending-up"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Detections</p>
+                    <p class="value">2</p>
+                </div>
+                <div class="patrol-detail-item" style="text-align:center">
+                    <p class="label">Signal</p>
+                    <div class="signal-bars"><span class="bar" style="height:12px"></span><span class="bar"
+                            style="height:16px"></span><span class="bar" style="height:20px"></span><span
+                            class="bar dim" style="height:16px"></span></div>
+                </div>
+            </div>
+            <div class="patrol-expanded">
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="radio"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>Send Message</button>
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="message-square"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>View Communication</button>
+                <button class="btn btn-outline btn-sm" style="flex:1">View Full Route</button>
+            </div>
+        </div>
+
+        <!-- Beta Team -->
+        <div class="patrol-card" data-patrol="patrol-2" onclick="togglePatrol(this)">
+            <div class="patrol-header">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <h3>Beta Team</h3>
+                        <span class="badge" style="background:rgba(20,184,166,0.2);color:var(--primary)">ACTIVE</span>
+                    </div>
+                    <p class="text-sm text-muted">Led by <span class="font-medium text-foreground">Sarah Okonkwo</span>
+                    </p>
+                </div>
+                <div style="text-align:right">
+                    <p class="text-sm text-muted">Coverage</p>
+                    <p class="text-2xl font-bold text-primary">88%</p>
+                </div>
+            </div>
+            <div class="patrol-details">
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="map-pin"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Zone</p>
+                    <p class="value">Eastern Reserve</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="clock"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Duration</p>
+                    <p class="value">3h 30m</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="users"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Rangers</p>
+                    <p class="value">2</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="trending-up"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Detections</p>
+                    <p class="value">1</p>
+                </div>
+                <div class="patrol-detail-item" style="text-align:center">
+                    <p class="label">Signal</p>
+                    <div class="signal-bars"><span class="bar" style="height:12px"></span><span class="bar"
+                            style="height:16px"></span><span class="bar" style="height:20px"></span><span
+                            class="bar dim" style="height:16px"></span></div>
+                </div>
+            </div>
+            <div class="patrol-expanded">
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="radio"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>Send Message</button>
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="message-square"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>View Communication</button>
+                <button class="btn btn-outline btn-sm" style="flex:1">View Full Route</button>
+            </div>
+        </div>
+
+        <!-- Gamma Team -->
+        <div class="patrol-card" data-patrol="patrol-3" onclick="togglePatrol(this)">
+            <div class="patrol-header">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <h3>Gamma Team</h3>
+                        <span class="badge" style="background:rgba(20,184,166,0.2);color:var(--primary)">ACTIVE</span>
+                    </div>
+                    <p class="text-sm text-muted">Led by <span class="font-medium text-foreground">David Kipchoge</span>
+                    </p>
+                </div>
+                <div style="text-align:right">
+                    <p class="text-sm text-muted">Coverage</p>
+                    <p class="text-2xl font-bold text-primary">95%</p>
+                </div>
+            </div>
+            <div class="patrol-details">
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="map-pin"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Zone</p>
+                    <p class="value">Central Area</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="clock"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Duration</p>
+                    <p class="value">1h 45m</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="users"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Rangers</p>
+                    <p class="value">5</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="trending-up"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Detections</p>
+                    <p class="value">0</p>
+                </div>
+                <div class="patrol-detail-item" style="text-align:center">
+                    <p class="label">Signal</p>
+                    <div class="signal-bars"><span class="bar" style="height:12px"></span><span class="bar"
+                            style="height:16px"></span><span class="bar" style="height:20px"></span><span
+                            class="bar dim" style="height:16px"></span></div>
+                </div>
+            </div>
+            <div class="patrol-expanded">
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="radio"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>Send Message</button>
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="message-square"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>View Communication</button>
+                <button class="btn btn-outline btn-sm" style="flex:1">View Full Route</button>
+            </div>
+        </div>
+
+        <!-- Delta Team -->
+        <div class="patrol-card" data-patrol="patrol-4" onclick="togglePatrol(this)">
+            <div class="patrol-header">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <h3>Delta Team</h3>
+                        <span class="badge" style="background:rgba(20,184,166,0.2);color:var(--primary)">ACTIVE</span>
+                    </div>
+                    <p class="text-sm text-muted">Led by <span class="font-medium text-foreground">Emma Mwangi</span>
+                    </p>
+                </div>
+                <div style="text-align:right">
+                    <p class="text-sm text-muted">Coverage</p>
+                    <p class="text-2xl font-bold text-primary">85%</p>
+                </div>
+            </div>
+            <div class="patrol-details">
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="map-pin"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Zone</p>
+                    <p class="value">Southern Basin</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="clock"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Duration</p>
+                    <p class="value">2h 00m</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="users"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Rangers</p>
+                    <p class="value">2</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="trending-up"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Detections</p>
+                    <p class="value">2</p>
+                </div>
+                <div class="patrol-detail-item" style="text-align:center">
+                    <p class="label">Signal</p>
+                    <div class="signal-bars"><span class="bar" style="height:12px"></span><span class="bar"
+                            style="height:16px"></span><span class="bar" style="height:20px"></span><span
+                            class="bar dim" style="height:16px"></span></div>
+                </div>
+            </div>
+            <div class="patrol-expanded">
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="radio"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>Send Message</button>
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="message-square"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>View Communication</button>
+                <button class="btn btn-outline btn-sm" style="flex:1">View Full Route</button>
+            </div>
+        </div>
+
+        <!-- Echo Team -->
+        <div class="patrol-card" data-patrol="patrol-5" onclick="togglePatrol(this)">
+            <div class="patrol-header">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <h3>Echo Team</h3>
+                        <span class="badge badge-muted">IDLE</span>
+                    </div>
+                    <p class="text-sm text-muted">Led by <span class="font-medium text-foreground">Michael
+                            Kiplagat</span></p>
+                </div>
+                <div style="text-align:right">
+                    <p class="text-sm text-muted">Coverage</p>
+                    <p class="text-2xl font-bold text-primary">78%</p>
+                </div>
+            </div>
+            <div class="patrol-details">
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="map-pin"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Zone</p>
+                    <p class="value">Western Plains</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="clock"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Duration</p>
+                    <p class="value">45m</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="users"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Rangers</p>
+                    <p class="value">4</p>
+                </div>
+                <div class="patrol-detail-item">
+                    <p class="label"><i data-lucide="trending-up"
+                            style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i>Detections</p>
+                    <p class="value">0</p>
+                </div>
+                <div class="patrol-detail-item" style="text-align:center">
+                    <p class="label">Signal</p>
+                    <div class="signal-bars"><span class="bar" style="height:12px"></span><span class="bar"
+                            style="height:16px"></span><span class="bar" style="height:20px"></span><span
+                            class="bar dim" style="height:16px"></span></div>
+                </div>
+            </div>
+            <div class="patrol-expanded">
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="radio"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>Send Message</button>
+                <button class="btn btn-outline btn-sm" style="flex:1"><i data-lucide="message-square"
+                        style="width:12px;height:12px;margin-right:0.5rem"></i>View Communication</button>
+                <button class="btn btn-outline btn-sm" style="flex:1">View Full Route</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Communication Status -->
+<div class="system-status">
+    <h3><i data-lucide="radio" style="width:20px;height:20px;color:var(--primary)"></i> Ranger Communication Status</h3>
+    <div class="system-status-grid">
+        <div class="system-status-item">
+            <p class="label">LoRa Signal</p>
+            <div class="status-row"><span class="dot"></span><span>Strong</span></div>
+        </div>
+        <div class="system-status-item">
+            <p class="label">Avg Latency</p><span class="font-semibold">120ms</span>
+        </div>
+        <div class="system-status-item">
+            <p class="label">Uptime</p><span class="font-semibold text-success">99.8%</span>
+        </div>
+        <div class="system-status-item">
+            <p class="label">Last Sync</p><span class="font-semibold">2 seconds ago</span>
+        </div>
+    </div>
+</div>
