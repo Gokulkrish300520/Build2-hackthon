@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from backend.db import SessionLocal
-from backend.models import (
+from db import SessionLocal
+from models import (
     IntelligenceReport, NetworkStatus, Patrol, PatrolReport, Camera, Video, Detection, Alert, PoachingEvent, Species, Frame
 )
 
@@ -252,7 +252,7 @@ def get_poaching_trends():
     db = SessionLocal()
     # Count high-risk detections by hour (demo)
     from sqlalchemy import func
-    from backend.models import Frame
+    from models import Frame
     results = db.query(Frame.timestamp, Detection.risk_score).join(Detection, Detection.frame_id == Frame.id).filter(Detection.type == "human", Detection.risk_score >= 0.7).all()
     # Group by hour
     from collections import Counter

@@ -1,7 +1,7 @@
 import cv2
 import os
-from backend.db import SessionLocal
-from backend.models import Frame, Video
+from db import SessionLocal
+from models import Frame, Video
 
 def extract_frames(video_id, video_path, fps=1):
     cap = cv2.VideoCapture(video_path)
