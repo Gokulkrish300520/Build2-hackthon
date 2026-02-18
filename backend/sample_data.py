@@ -1,6 +1,6 @@
 
-from backend.db import SessionLocal
-from backend.models import Alert, Patrol, NetworkStatus, IntelligenceReport, Detection, Frame
+from db import SessionLocal
+from models import Alert, Patrol, NetworkStatus, IntelligenceReport, Detection, Frame
 
 # Sample Alerts
 alerts = [

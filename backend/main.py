@@ -31,8 +31,8 @@ async def upload_video(file: UploadFile = File(...), background_tasks: Backgroun
     return JSONResponse({"status": "processing", "video_id": video_id})
 
 def process_video_pipeline(video_id, file_path):
-    from backend.detection_stub import track_objects
-    from backend.behavior_analysis import analyze_behavior
+    from detection_stub import track_objects
+    from behavior_analysis import analyze_behavior
     extract_frames(video_id, file_path, fps=1)
     db = SessionLocal()
     video = db.query(Video).filter(Video.id == video_id).first()
