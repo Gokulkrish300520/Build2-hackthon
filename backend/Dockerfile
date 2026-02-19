@@ -11,6 +11,11 @@ RUN apt-get update && apt-get install -y \
 	libxext6 \
 	&& rm -rf /var/lib/apt/lists/*
 
+# Clean up pip cache, __pycache__, .cache, and other unnecessary files after install
+RUN pip cache purge || true && \
+	find /usr/local/lib/python3.11/site-packages -type d -name '__pycache__' -exec rm -rf {} + && \
+	rm -rf /root/.cache /root/.local /tmp/*
+
 # Set working directory
 WORKDIR /app
 
