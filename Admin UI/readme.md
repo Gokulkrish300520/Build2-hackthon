@@ -4,7 +4,7 @@
 
 - Ashwath P(Team Lead)
 - Suyash
-- Yuvaneshwaran
+- Yuvaneswaran
 - Gokul
 
 <!-- Add more details such as roles, GitHub usernames, or emails if needed -->
